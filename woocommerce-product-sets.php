@@ -11,14 +11,14 @@
  * Requires PHP: 7.4
  */
 
-if (!defined('ABSPATH')) {
-    exit(0);
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
 }
-const WOOPRODSET_FILE = WOOPRODSET_FILE?? __FILE__;
+const WOOPRODSET_FILE = WOOPRODSET_FILE ?? __FILE__;
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/WooProductSetMain.php';
 
-register_activation_hook(__FILE__, [\Elderbraum\WooProductSet\Installer::class, 'install']);
+register_activation_hook( __FILE__, [ \Elderbraum\WooProductSet\Installer::class, 'install' ] );
 
-add_action('woocommerce_loaded', [\Elderbraum\WooProductSet\WooProductSetMain::class, 'load']);
+add_action( 'woocommerce_loaded', [ \Elderbraum\WooProductSet\WooProductSetMain::class, 'load' ] );
