@@ -1,0 +1,19 @@
+{
+  "name": "elderbraum/woocommerce-product-sets",
+  "description": "A new product type for woocommerce",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mitch",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {
+      "Elderbraum\\WooProductSet\\": "src/"
+    }
+  }
+}
