@@ -8,17 +8,16 @@
  * Text Domain: woo-prod-set
  * License:     MIT
  * Requires at least: 5.4
- * Requires PHP: 7.2
+ * Requires PHP: 7.4
  */
 
 if (!defined('ABSPATH')) {
     exit(0);
 }
-
-defined('WOOPRODSET_FILE') || define('WOOPRODSET_FILE', __FILE__);
+const WOOPRODSET_FILE = WOOPRODSET_FILE?? __FILE__;
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once(__DIR__ . '/WooProductSetMain.php');
+require_once __DIR__ . '/WooProductSetMain.php';
 
 register_activation_hook(__FILE__, [\Elderbraum\WooProductSet\Installer::class, 'install']);
 
