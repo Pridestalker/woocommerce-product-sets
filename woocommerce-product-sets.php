@@ -14,6 +14,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit( 0 );
 }
+
 const WOOPRODSET_FILE = WOOPRODSET_FILE ?? __FILE__;
 
 require_once __DIR__ . '/vendor/autoload.php';
