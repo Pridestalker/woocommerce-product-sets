@@ -9,8 +9,6 @@
       "email": "email@example.com"
     }
   ],
-  "require": {
-  },
   "autoload": {
     "psr-4": {
       "Elderbraum\\WooProductSet\\": "src/"
