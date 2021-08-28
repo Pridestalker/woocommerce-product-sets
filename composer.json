@@ -1,17 +1,40 @@
 {
   "name": "elderbraum/woocommerce-product-sets",
   "description": "A new product type for woocommerce",
-  "minimum-stability": "stable",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Mitch",
-      "email": "email@example.com"
-    }
-  ],
+  "license": "GPL-2.0-or-later",
   "autoload": {
     "psr-4": {
-      "Elderbraum\\WooProductSet\\": "src/"
+      "WooProductSets\\": "app/"
+    },
+    "files": [
+      "./app/helpers.php",
+      "./bootstrap/app.php"
+    ]
+  },
+  "authors": [
+    {
+      "name": "Mitch Hijlkema",
+      "email": "mitch@webreact.nl",
+      "role": "Developer",
+      "homepage": "https://webreact.nl/"
+    },
+    {
+      "name": "Nils Ringersma",
+      "email": "nils@webreact.nl",
+      "role": "Developer",
+      "homepage": "https://webreact.nl/"
     }
+  ],
+  "require": {
+    "php-di/php-di": "^6.3",
+    "kint-php/kint": "^3.3",
+    "league/plates": "^3.4",
+    "monolog/monolog": "^2.3",
+    "symfony/http-foundation": "^5.3",
+    "league/flysystem": "^2.2",
+    "yahnis-elsts/plugin-update-checker": "^4.11"
+  },
+  "require-dev": {
+    "johnpbloch/wordpress-core": "5.8.0"
   }
 }

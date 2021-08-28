@@ -1,5 +1,24 @@
 {
+  "scripts": {
+    "dev": "npm run clean &&  npm run dev:modern",
+    "dev:modern": "BROWSERSLIST_ENV=modern NODE_ENV=development TAILWIND_MODE=build mix",
+    "prod": "npm run clean && npm run prod:modern",
+    "prod:modern": "BROWSERSLIST_ENV=modern NODE_ENV=production mix --production",
+    "build:production": "npm run prod",
+    "build:staging": "npm run prod",
+    "start": "npm run clean && BROWSERSLIST_ENV=modern NODE_ENV=development mix watch",
+    "hot": "mix watch --hot",
+    "clean": "rimraf dist && rimraf storage/cache",
+    "translate": "npm run translate:pot && npm run translate:js",
+    "translate:pot": "wp i18n make-pot . ./resources/lang/woocommerce-product-sets.pot --ignore-domain --include=\"app,dist,resources\"",
+    "translate:js": "wp i18n make-json ./resources/lang --pretty-print"
+  },
+  "dependencies": {
+    "@webreact/webreactor": "^0.7.1",
+    "laravel-mix": "^6.0.28",
+    "rimraf": "^3.0.2"
+  },
   "devDependencies": {
-    "rollup": "^2.26.8"
+    "jquery": "^3.6.0"
   }
 }

@@ -1,26 +1,24 @@
 <?php
 
 /**
- * Plugin Name: Woocommerce product set
- * Version:     1.0.0
- * Description: A plugin adding a new product-type
- * Author:      Elderbraum
- * Text Domain: woo-prod-set
- * License:     MIT
- * Requires at least: 5.4
- * Requires PHP: 7.4
+ * Plugin Name:         Woocommerce product set
+ * Version:             2.0.0
+ * Description:         A plugin adding a new product-type
+ * Author:              Elderbraum
+ * License:             GPL-2.0+
+ * License URI:         http://www.gnu.org/licenses/gpl-2.0.txt
+ * Requires at least:   5.7
+ * Requires PHP:        7.4
+ * Text Domain:         woocommerce-product-sets
+ * Domain Path:         /resources/lang
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit( 0 );
-}
+defined( 'WPINC' ) || die;
 
-const WOOPRODSET_FILE = __FILE__;
+const WOO_PROD_SETS_VERSION = '1.0.0';
+const WOO_PROD_SETS_FILE    = __FILE__;
+const WOO_PROD_SETS_DIR     = __DIR__;
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/WooProductSetMain.php';
 
-register_activation_hook( __FILE__, [ \Elderbraum\WooProductSet\Installer::class, 'install' ] );
-register_deactivation_hook( __FILE__, [ \Elderbraum\WooProductSet\UnInstaller::class, 'install' ] );
-
-add_action( 'woocommerce_loaded', [ \Elderbraum\WooProductSet\WooProductSetMain::class, 'load' ] );
+add_action( 'woocommerce_loaded', [ \WooProductSets\Plugin::class, 'get_instance' ] );
