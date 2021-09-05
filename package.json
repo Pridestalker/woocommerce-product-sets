@@ -16,6 +16,7 @@
   "dependencies": {
     "@webreact/webreactor": "^0.7.1",
     "laravel-mix": "^6.0.28",
+    "react-redux": "^7.2.4",
     "rimraf": "^3.0.2"
   },
   "devDependencies": {

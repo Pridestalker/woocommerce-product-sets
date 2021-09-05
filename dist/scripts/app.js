@@ -42,7 +42,6 @@ function hider(value) {
   }
 
   if (value === 'dynamic-percentage') {
-    console.log('showing');
     percentageFee.show();
     setPrice.hide();
   }
