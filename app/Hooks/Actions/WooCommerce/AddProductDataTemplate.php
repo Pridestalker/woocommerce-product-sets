@@ -5,20 +5,22 @@ namespace WooProductSets\Hooks\Actions\WooCommerce;
 use WooProductSets\Hooks\Hook;
 use WooProductSets\System\View;
 
-class AddProductDataTemplate extends Hook {
-	public static function hook_name() {
-		return 'woocommerce_product_options_general_product_data';
-	}
+class AddProductDataTemplate extends Hook
+{
+    public static function hook_name()
+    {
+        return 'woocommerce_product_options_general_product_data';
+    }
 
-	public function hook() {
+    public function hook()
+    {
+        $product = wc_get_product();
 
-		$product = wc_get_product();
+        if ($product->get_type() !== 'set') {
+            return;
+        }
 
-		if ( $product->get_type() !== 'set' ) {
-			return;
-		}
-
-		\WooProductSets\app( View::class )->write( 'admin-template', [ 'product' => $product ] );
-	}
+        \WooProductSets\app(View::class)->write('admin-template', ['product' => $product]);
+    }
 
 }

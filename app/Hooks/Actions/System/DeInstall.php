@@ -13,22 +13,26 @@ use WooProductSets\Hooks\Hook;
  * @author Mitch Hijlkema <mitch@mitchhijlkema.nl>
  * @copyright 2021 Mitch Hijlkema
  */
-class DeInstall extends Hook {
-	public static function hook_name() {
-		return 'woo_product_sets_deactivation';
-	}
+class DeInstall extends Hook
+{
+    public function hook()
+    {
+        $this->remove_cron_job();
+    }
 
-	public function hook() {
-		$this->remove_cron_job();
-	}
+    private function remove_cron_job()
+    {
+        foreach (\WooProductSets\config('hooks.cron_jobs') as $cron) {
+            /**
+             * @type Cron $cron
+             */
+            $timestamp = wp_next_scheduled($cron::hook_name());
+            wp_unschedule_event($timestamp, $cron::hook_name());
+        }
+    }
 
-	private function remove_cron_job() {
-		foreach ( \WooProductSets\config( 'hooks.cron_jobs' ) as $cron ) {
-			/**
-			 * @type Cron $cron
-			 */
-			$timestamp = wp_next_scheduled( $cron::hook_name() );
-			wp_unschedule_event( $timestamp, $cron::hook_name() );
-		}
-	}
+    public static function hook_name()
+    {
+        return 'woo_product_sets_deactivation';
+    }
 }

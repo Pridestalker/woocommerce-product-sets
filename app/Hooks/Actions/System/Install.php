@@ -13,37 +13,42 @@ use WooProductSets\Hooks\Hook;
  * @author Mitch Hijlkema <mitch@mitchhijlkema.nl>
  * @copyright 2021 Mitch Hijlkema
  */
-class Install extends Hook {
-	public static function hook_name(): string {
-		return 'woo_product_sets_activation';
-	}
+class Install extends Hook
+{
+    public static function hook_name(): string
+    {
+        return 'woo_product_sets_activation';
+    }
 
-	public function hook() {
-		$this->createTaxonomyIfNotExists();
-		$this->correctProductTypes();
-	}
+    public function hook()
+    {
+        $this->createTaxonomyIfNotExists();
+        $this->correctProductTypes();
+    }
 
-	private function createTaxonomyIfNotExists() {
-		if ( ! get_term_by( 'slug', 'set', 'product_type' ) ) {
-			wp_insert_term( 'set', 'product_type' );
-		}
-	}
+    private function createTaxonomyIfNotExists()
+    {
+        if (!get_term_by('slug', 'set', 'product_type')) {
+            wp_insert_term('set', 'product_type');
+        }
+    }
 
-	public function correctProductTypes() {
-		$products = get_posts( [
-			'post_type'   => 'product',
-			'numberposts' => - 1,
-			'fields'      => 'ids',
-			'meta_query'  => [
-				[
-					'key'     => '_set_price',
-					'compare' => 'EXISTS',
-				]
-			]
-		] );
+    public function correctProductTypes()
+    {
+        $products = get_posts([
+            'post_type' => 'product',
+            'numberposts' => -1,
+            'fields' => 'ids',
+            'meta_query' => [
+                [
+                    'key' => '_set_price',
+                    'compare' => 'EXISTS',
+                ]
+            ]
+        ]);
 
-		foreach ( $products as $product ) {
-			wp_set_object_terms( $product, 'set', 'product_type', false );
-		}
-	}
+        foreach ($products as $product) {
+            wp_set_object_terms($product, 'set', 'product_type', false);
+        }
+    }
 }

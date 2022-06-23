@@ -9,12 +9,13 @@ use WooProductSets\System\Container;
  *
  * @return mixed
  */
-function app( $abstract = null, $parameters = [] ) {
-	if ( is_null( $abstract ) ) {
-		return Container::bootstrap();
-	}
+function app($abstract = null, $parameters = [])
+{
+    if (is_null($abstract)) {
+        return Container::bootstrap();
+    }
 
-	return Container::make( $abstract, $parameters );
+    return Container::make($abstract, $parameters);
 }
 
 /**
@@ -23,14 +24,15 @@ function app( $abstract = null, $parameters = [] ) {
  *
  * @return mixed
  */
-function config( $key = null, $default = null ) {
-	$key = preg_split( '/(\.|\/)/', $key );
+function config($key = null, $default = null)
+{
+    $key = preg_split('/(\.|\/)/', $key);
 
-	$file = array_shift( $key );
-	$file = $file . '.php';
+    $file = array_shift($key);
+    $file = $file . '.php';
 
-	return app( 'config', [ 'file' => $file ] )
-		->get( $key, $default );
+    return app('config', ['file' => $file])
+        ->get($key, $default);
 }
 
 /**
@@ -40,8 +42,9 @@ function config( $key = null, $default = null ) {
  *
  * @return mixed
  */
-function value( $value, ...$args ) {
-	return $value instanceof \Closure ? $value( ...$args ) : $value;
+function value($value, ...$args)
+{
+    return $value instanceof \Closure ? $value(...$args) : $value;
 }
 
 /**
@@ -49,10 +52,11 @@ function value( $value, ...$args ) {
  *
  * @return bool|string
  */
-function environment( ...$env ) {
-	if ( count( $env ) === 0 ) {
-		return config( 'app.env' );
-	}
+function environment(...$env)
+{
+    if (count($env) === 0) {
+        return config('app.env');
+    }
 
-	return in_array( config( 'app.env' ), $env );
+    return in_array(config('app.env'), $env);
 }

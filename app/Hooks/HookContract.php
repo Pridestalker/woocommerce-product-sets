@@ -8,5 +8,6 @@ namespace WooProductSets\Hooks;
  *
  * @method hook
  */
-interface HookContract {
+interface HookContract
+{
 }

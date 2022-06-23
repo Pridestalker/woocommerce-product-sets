@@ -3,6 +3,7 @@
 namespace WooProductSets\System;
 
 use League\Flysystem\Local\LocalFilesystemAdapter;
+
 use function WooProductSets\app;
 
 /**
@@ -11,46 +12,54 @@ use function WooProductSets\app;
  * Class FileSystem
  * @package WooProductSets\System
  */
-class FileSystem {
+class FileSystem
+{
 
-	protected static ?FileSystem $_instance = null;
+    protected static ?FileSystem $_instance = null;
 
-	private \League\Flysystem\Filesystem $uploadsFS;
-	private \League\Flysystem\Filesystem $pluginFS;
+    private \League\Flysystem\Filesystem $uploadsFS;
+    private \League\Flysystem\Filesystem $pluginFS;
 
-	public function __construct() {
-		$this->uploadsFS = new \League\Flysystem\Filesystem( new LocalFilesystemAdapter( WP_CONTENT_DIR . '/uploads/' ) );
-		$this->pluginFS  = new \League\Flysystem\Filesystem( new LocalFilesystemAdapter( WOO_PROD_SETS_DIR ) );
-	}
+    public function __construct()
+    {
+        $this->uploadsFS = new \League\Flysystem\Filesystem(new LocalFilesystemAdapter(WP_CONTENT_DIR . '/uploads/'));
+        $this->pluginFS = new \League\Flysystem\Filesystem(new LocalFilesystemAdapter(WOO_PROD_SETS_DIR));
+    }
 
-	public static function bootstrap(): FileSystem {
-		if ( null === static::$_instance ) {
-			static::$_instance = app( FileSystem::class );
-		}
+    public static function bootstrap(): FileSystem
+    {
+        if (null === static::$_instance) {
+            static::$_instance = app(FileSystem::class);
+        }
 
-		return static::$_instance;
-	}
+        return static::$_instance;
+    }
 
-	public function getJson( $file ) {
-		return json_decode( $this->get( $file ) );
-	}
+    public function getJson($file)
+    {
+        return json_decode($this->get($file));
+    }
 
-	/**
-	 * @throws \League\Flysystem\FilesystemException
-	 */
-	public function get( $file ) {
-		return $this->uploadsFS->read( $file );
-	}
+    /**
+     * @throws \League\Flysystem\FilesystemException
+     */
+    public function get($file)
+    {
+        return $this->uploadsFS->read($file);
+    }
 
-	public function write( $file, $data ) {
-		$this->uploadsFS->write( $file, $data );
-	}
+    public function write($file, $data)
+    {
+        $this->uploadsFS->write($file, $data);
+    }
 
-	public function hasPluginFile( $file ) {
-		return $this->pluginFS->fileExists( $file );
-	}
+    public function hasPluginFile($file)
+    {
+        return $this->pluginFS->fileExists($file);
+    }
 
-	public function getPluginFile( $file ) {
-		return $this->pluginFS->read( $file );
-	}
+    public function getPluginFile($file)
+    {
+        return $this->pluginFS->read($file);
+    }
 }
