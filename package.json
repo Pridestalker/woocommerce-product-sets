@@ -14,9 +14,8 @@
     "translate:js": "wp i18n make-json ./resources/lang --pretty-print"
   },
   "dependencies": {
-    "@webreact/webreactor": "^0.7.1",
-    "laravel-mix": "^6.0.28",
-    "react-redux": "^7.2.4",
+    "@webreact/webreactor": "^1.0.2",
+    "laravel-mix": "^6.0.49",
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
