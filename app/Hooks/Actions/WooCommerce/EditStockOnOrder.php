@@ -15,13 +15,14 @@ class EditStockOnOrder extends Hook
     {
         $order = wc_get_order($order_id);
 
+
         foreach ($order->get_items() as $item) {
             if ($item->get_type() !== 'line_item') {
                 continue;
             }
 
             $product = $item->get_product();
-            if ($product->get_type !== 'set') {
+            if ($product->get_type() !== 'set') {
                 continue;
             }
 
@@ -30,7 +31,7 @@ class EditStockOnOrder extends Hook
 
                 /* Translators: 1: Parent product name 2: Child product name 3: Original quantity 4: New quantity */
                 $order_note = sprintf(
-                    __('[%1$s]: Reduced stock for %2%s from %3$s -> %4$s ', 'woocommerce-product-sets'),
+                    __('[%1$s]: Reduced stock for %2$s from %3$s -> %4$s ', 'woocommerce-product-sets'),
                     $product->get_title(),
                     $childProduct->get_title(),
                     $childProduct->get_stock_quantity('edit'),
