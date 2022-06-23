@@ -22,8 +22,6 @@ foreach ( \WooProductSets\config( 'hooks.cron_jobs' ) as $cron ) {
 }
 
 function run_woo_product_sets() {
-    \WooProductSets\Plugin::get_instance();
-
 	do_action( 'woo_product_sets_init' );
 }
 
