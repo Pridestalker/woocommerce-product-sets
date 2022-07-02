@@ -15,11 +15,7 @@ class AddProductDataTemplate extends Hook
     public function hook()
     {
         $product = wc_get_product();
-
-        if ($product->get_type() !== 'set') {
-            return;
-        }
-
+        
         \WooProductSets\app(View::class)->write('admin-template', ['product' => $product]);
     }
 

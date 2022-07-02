@@ -41,7 +41,11 @@
                     data-exclude="<?= (int) $product->get_id(); ?>">
 			    <?php
 			    $product_object = $product;
-			    $product_ids    = $product_object->get_child_products();
+                if (method_exists($product_object, 'get_child_products')) {
+                    $product_ids    = $product_object->get_child_products();
+                } else {
+                    $product_ids    = [];
+                }
 
 			    foreach ( $product_ids as $product_id ) {
 				    $product = wc_get_product( $product_id );
