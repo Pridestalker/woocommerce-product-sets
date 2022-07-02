@@ -200,7 +200,7 @@ class WC_Product_Set extends \WC_Product
                 $price = sanitize_text_field($_POST['_set_price']);
                 $this->update_meta_data('_sale_price', $price);
                 $this->set_price($newPrice);
-                $this->update_meta_data('_set_price', $price);
+                $this->update_meta_data('_set_price', $newPrice);
                 break;
             case 'dynamic-sum':
                 $this->update_meta_data('_price', $newPrice);
@@ -208,7 +208,7 @@ class WC_Product_Set extends \WC_Product
                 break;
             case 'dynamic-percentage':
                 $reducedPrice = $newPrice * (int)$this->get_meta('_set_price_percentage_fee') / 100;
-                $this->update_meta_data('_sale_price', $reducedPrice);
+                $this->update_meta_data('_sale_price', $newPrice);
                 $this->update_meta_data('_price', $reducedPrice);
                 $this->update_meta_data('_set_price', $reducedPrice);
                 break;
