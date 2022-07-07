@@ -20,7 +20,7 @@ class UpdateProductPrice extends Hook
             return;
         }
 
-        if (!isset($_POST['_price_type'])) {
+        if (!isset($_POST[WC_Product_Set::K_PRICE_TYPE])) {
             return;
         }
 
@@ -31,18 +31,18 @@ class UpdateProductPrice extends Hook
 
     protected function updatePriceType($product)
     {
-        $product->update_meta_data('_price_type', $_POST['_price_type']);
+        $product->update_meta_data(WC_Product_Set::K_PRICE_TYPE, $_POST[WC_Product_Set::K_PRICE_TYPE]);
     }
 
     protected function updatePercentagePrice($product)
     {
-        if (!isset($_POST['_set_price_percentage_fee'])) {
+        if (!isset($_POST[WC_Product_Set::K_SET_PRICE_PERCENTAGE_FEE])) {
             return;
         }
 
         $product->update_meta_data(
-            '_set_price_percentage_fee',
-            sanitize_text_field($_POST['_set_price_percentage_fee'])
+            WC_Product_Set::K_SET_PRICE_PERCENTAGE_FEE,
+            sanitize_text_field($_POST[WC_Product_Set::K_SET_PRICE_PERCENTAGE_FEE])
         );
     }
 

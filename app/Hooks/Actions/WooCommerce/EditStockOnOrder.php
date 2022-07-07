@@ -15,7 +15,6 @@ class EditStockOnOrder extends Hook
     {
         $order = wc_get_order($order_id);
 
-
         foreach ($order->get_items() as $item) {
             if ($item->get_type() !== 'line_item') {
                 continue;
@@ -39,10 +38,7 @@ class EditStockOnOrder extends Hook
                 );
 
                 $order->add_order_note($order_note);
-                wc_update_product_stock(
-                    $childProduct->get_id(),
-                    $newStock
-                );
+                wc_update_product_stock($childProduct->get_id(), $newStock);
             }
         }
     }

@@ -20,6 +20,7 @@ class Plugin
         $this->register_taxonomies();
         $this->register_hooks();
         $this->register_updates();
+        $this->registerScripts();
     }
 
     protected function register_post_types()
@@ -29,7 +30,7 @@ class Plugin
         $this->registerActionsFromArray($post_types);
     }
 
-    private function registerActionsFromArray($hook_arr = [])
+    protected function registerActionsFromArray($hook_arr = [])
     {
         foreach ($hook_arr as $hook) {
             /**
@@ -62,7 +63,7 @@ class Plugin
         $this->registerFiltersFromArray($filters);
     }
 
-    private function registerFiltersFromArray($hook_arr = [])
+    protected function registerFiltersFromArray($hook_arr = [])
     {
         foreach ($hook_arr as $hook) {
             /**
@@ -85,12 +86,24 @@ class Plugin
 
     protected function register_updates()
     {
-        $this->updates = $myUpdateChecker = \Puc_v4_Factory::buildUpdateChecker(
+        $this->updates = \Puc_v4_Factory::buildUpdateChecker(
             config('updates.metadata'),
             config('updates.full_path'),
             config('updates.slug'),
         );
     }
+
+    protected function registerScripts()
+    {
+        wp_register_script(
+            'woocommerce-product-sets-main',
+            plugin_dir_url(WOO_PROD_SETS_FILE) . '/dist/scripts/app.js',
+            ['jquery'],
+            filemtime(WOO_PROD_SETS_DIR . '/dist/scripts/app.js'),
+            true
+        );
+    }
+
 
     /**
      * Gets the base plugin file to hook in to everything.

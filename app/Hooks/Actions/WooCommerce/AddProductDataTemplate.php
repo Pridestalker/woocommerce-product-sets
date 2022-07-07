@@ -5,6 +5,8 @@ namespace WooProductSets\Hooks\Actions\WooCommerce;
 use WooProductSets\Hooks\Hook;
 use WooProductSets\System\View;
 
+use function WooProductSets\app;
+
 class AddProductDataTemplate extends Hook
 {
     public static function hook_name()
@@ -16,7 +18,7 @@ class AddProductDataTemplate extends Hook
     {
         $product = wc_get_product();
         
-        \WooProductSets\app(View::class)->write('admin-template', ['product' => $product]);
+        app(View::class)->write('admin-template', ['product' => $product]);
     }
 
 }

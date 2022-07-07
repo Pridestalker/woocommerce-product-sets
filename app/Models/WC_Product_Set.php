@@ -33,6 +33,13 @@ class WC_Product_Set extends \WC_Product
     public const K_SET_PRICE = '_set_price';
 
     /**
+     * Meta key for the percentage fee set on the price.
+     *
+     * @var string K_SET_PRICE_PERCENTAGE_FEE
+     */
+    public const K_SET_PRICE_PERCENTAGE_FEE = '_set_price_percentage_fee';
+
+    /**
      * Get the product type.
      *
      * @return string the product type
@@ -192,25 +199,25 @@ class WC_Product_Set extends \WC_Product
 
         $this->add_meta_data('_regular_price', $newPrice);
 
-        switch ($this->get_meta('_price_type')) {
+        switch ($this->get_meta(static::K_PRICE_TYPE)) {
             case 'fixed':
-                if (!isset($_POST['_set_price'])) {
+                if (!isset($_POST[static::K_SET_PRICE])) {
                     break;
                 }
-                $price = sanitize_text_field($_POST['_set_price']);
+                $price = sanitize_text_field($_POST[static::K_SET_PRICE]);
                 $this->update_meta_data('_sale_price', $price);
                 $this->set_price($newPrice);
-                $this->update_meta_data('_set_price', $newPrice);
+                $this->update_meta_data(static::K_SET_PRICE, $newPrice);
                 break;
             case 'dynamic-sum':
                 $this->update_meta_data('_price', $newPrice);
-                $this->update_meta_data('_set_price', $newPrice);
+                $this->update_meta_data(static::K_SET_PRICE, $newPrice);
                 break;
             case 'dynamic-percentage':
-                $reducedPrice = $newPrice * (int)$this->get_meta('_set_price_percentage_fee') / 100;
+                $reducedPrice = $newPrice * (int)$this->get_meta(self::K_SET_PRICE_PERCENTAGE_FEE) / 100;
                 $this->update_meta_data('_sale_price', $newPrice);
                 $this->update_meta_data('_price', $reducedPrice);
-                $this->update_meta_data('_set_price', $reducedPrice);
+                $this->update_meta_data(static::K_SET_PRICE, $reducedPrice);
                 break;
         }
 

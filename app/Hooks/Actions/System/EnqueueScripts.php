@@ -13,12 +13,8 @@ class EnqueueScripts extends Hook
 
     public function hook()
     {
-        wp_enqueue_script(
-            'woocommerce-product-sets-main',
-            plugin_dir_url(WOO_PROD_SETS_FILE) . '/dist/scripts/app.js',
-            ['jquery'],
-            filemtime(WOO_PROD_SETS_DIR . '/dist/scripts/app.js'),
-            true
-        );
+        if (is_product()) {
+            wp_enqueue_script('woocommerce-product-sets-main',);
+        }
     }
 }
