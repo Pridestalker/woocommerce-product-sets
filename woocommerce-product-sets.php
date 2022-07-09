@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name:         Woocommerce product set
- * Version:             2.0.2
+ * Version:             2.0.3
  * Description:         A plugin adding a new product-type
  * Author:              Elderbraum
  * License:             GPL-2.0+
@@ -15,7 +15,7 @@
 
 defined( 'WPINC' ) || die;
 
-const WOO_PROD_SETS_VERSION = '2.0.2';
+const WOO_PROD_SETS_VERSION = '2.0.3';
 const WOO_PROD_SETS_FILE    = __FILE__;
 const WOO_PROD_SETS_DIR     = __DIR__;
 
