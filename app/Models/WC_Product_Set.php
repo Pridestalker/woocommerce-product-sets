@@ -75,9 +75,11 @@ class WC_Product_Set extends \WC_Product
      */
     public function get_child_products_as_wc_product(): array
     {
-        return array_map(static function ($id) {
-            return \wc_get_product($id);
-        }, $this->get_child_products());
+        return array_filter(
+            array_map(static function ($id) {
+                return \wc_get_product($id);
+            }, $this->get_child_products())
+        );
     }
 
     /**
