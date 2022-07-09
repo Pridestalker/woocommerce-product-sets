@@ -11,7 +11,7 @@ class RenderAddToCart extends Hook
 {
     public function hook()
     {
-        if (get_theme_file_path('woocommerce/single-product/add-to-cart/set.php')) {
+        if (file_exists(get_theme_file_path('woocommerce/single-product/add-to-cart/set.php'))) {
             require_once get_theme_file_path('woocommerce/single-product/add-to-cart/set.php');
             return;
         }
