@@ -19,6 +19,8 @@ return [
 		\WooProductSets\Hooks\Actions\Cron\CorrectConnectedProducts::class,
 		\WooProductSets\Hooks\Actions\Cron\CorrectProductStock::class,
 		\WooProductSets\Hooks\Actions\Cron\CorrectProductPrice::class,
+
+        \WooProductSets\Hooks\Actions\WooCommerce\RenderAddToCart::class,
 	],
 	'cron_jobs'  => [
 		\WooProductSets\Hooks\Cron\StockCron::class,

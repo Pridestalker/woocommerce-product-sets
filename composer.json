@@ -14,15 +14,9 @@
   "authors": [
     {
       "name": "Mitch Hijlkema",
-      "email": "mitch@webreact.nl",
+      "email": "mitchhijlkema@hotmail.com",
       "role": "Developer",
-      "homepage": "https://webreact.nl/"
-    },
-    {
-      "name": "Nils Ringersma",
-      "email": "nils@webreact.nl",
-      "role": "Developer",
-      "homepage": "https://webreact.nl/"
+      "homepage": "https://mitchhijlkema.nl/"
     }
   ],
   "require": {

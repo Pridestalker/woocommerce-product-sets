@@ -11,9 +11,19 @@ class View
     public function __construct()
     {
         $this->engine = new Engine($this->get_template_path());
+        $this->addFunctions();
     }
 
-    private function get_template_path()
+    protected function addFunctions()
+    {
+        do_action('woo_product_sets/view/functions', $this->engine);
+
+        $this->engine->registerFunction('esc_url', function (...$params) {
+            return esc_url(...$params);
+        });
+    }
+
+    protected function get_template_path()
     {
         return WOO_PROD_SETS_DIR . '/resources/views';
     }
