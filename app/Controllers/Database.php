@@ -18,7 +18,6 @@ class Database
         $this->wpdb = $wpdb;
 
         if (!$this->hasDatabase()) {
-            wp_die('Hellooo');
             $this->installDatabase();
         }
     }
