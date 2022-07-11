@@ -284,15 +284,24 @@ class WC_Product_Set extends \WC_Product
         do_action('Elderbraum/WooProductSet/models/store-children/pre', $data, $this->get_id());
         $data = apply_filters('Elderbraum/WooProductSet/models/store-children', $data, $this->get_id());
 
-        $existingChildren = $this->get_child_products();
-        $newChildren = array_diff($data, $existingChildren);
-
-        foreach ($newChildren as $child) {
+        $this->remove_all_child_products();
+        foreach ($data as $child) {
             DatabaseHelper::instance()->store(
                 $child,
                 $this->get_id(),
             );
         }
         do_action('Elderbraum/WooProductSet/models/store-children/post', $data, $this->get_id());
+    }
+
+    /**
+     * Deletes all child products from the database. You can use this to
+     * fully update the data from the product set. Make sure you back up the old products first.
+     *
+     * @return void
+     */
+    protected function remove_all_child_products(): void
+    {
+        DatabaseHelper::instance()->removeAllById($this->get_id());
     }
 }

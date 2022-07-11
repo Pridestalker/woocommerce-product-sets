@@ -81,4 +81,17 @@ class DatabaseHelper
             ]
         );
     }
+
+    public function removeAllById(int $set_id): void
+    {
+        $this->wpdb->delete(
+            $this->table_name,
+            [
+                'set_id' => $set_id,
+            ],
+            [
+                '%d',
+            ]
+        );
+    }
 }
