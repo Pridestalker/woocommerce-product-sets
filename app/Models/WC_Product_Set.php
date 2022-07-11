@@ -2,6 +2,8 @@
 
 namespace WooProductSets\Models;
 
+use WooProductSets\Helpers\DatabaseHelper;
+
 /**
  * The WC_Product class extension WC_Product_Set. It represents a set of simple products.
  *
@@ -90,10 +92,18 @@ class WC_Product_Set extends \WC_Product
     public function get_child_products(): array
     {
         do_action('WooProductSet/models/get-children/post', $this->get_id());
-        $children = apply_filters(
-            'WooProductSet/models/get-children',
-            $this->get_meta(self::K_CHILD_PRODUCT)
-        );
+
+        $children = DatabaseHelper::instance()->allById($this->get_id());
+
+        if (empty($children)) {
+            DatabaseHelper::instance()->migrateOne($this);
+            $children = DatabaseHelper::instance()->allById($this->get_id());
+        }
+
+        $children = apply_filters('WooProductSet/models/get-children', $children,);
+
+
+        $children = array_filter($children);
 
         return $children ?: [];
     }
@@ -190,9 +200,9 @@ class WC_Product_Set extends \WC_Product
     {
         $newPrice = 0.00;
 
-        $this->delete_meta_data('_sale_price');
-        $this->delete_meta_data('_regular_price');
-        $this->delete_meta_data('_price');
+        $this->delete_post_meta('_sale_price');
+        $this->delete_post_meta('_regular_price');
+        $this->delete_post_meta('_price');
 
         foreach ($this->get_child_products() as $child_product) {
             $childProductTemp = wc_get_product($child_product);
@@ -228,6 +238,11 @@ class WC_Product_Set extends \WC_Product
         do_action('woocommerce_updated_product_price', $this->get_id());
     }
 
+    public function delete_post_meta(string $meta_key): void
+    {
+        delete_post_meta($this->get_id(), $meta_key);
+    }
+
     /**
      * Gets the current child products and checks their validity.
      *
@@ -241,13 +256,13 @@ class WC_Product_Set extends \WC_Product
         $ids = $this->get_child_products();
 
         foreach ($ids as $id) {
-            $product = wc_get_product($id);
+            $postType = get_post_type($id);
 
-            if (!$product) {
+            if ($postType !== 'product') {
                 continue;
             }
 
-            if (!get_post_status($id) === 'publish') {
+            if (get_post_status($id) !== 'publish') {
                 continue;
             }
 
@@ -268,7 +283,16 @@ class WC_Product_Set extends \WC_Product
     {
         do_action('Elderbraum/WooProductSet/models/store-children/pre', $data, $this->get_id());
         $data = apply_filters('Elderbraum/WooProductSet/models/store-children', $data, $this->get_id());
-        $this->update_meta_data(self::K_CHILD_PRODUCT, $data);
+
+        $existingChildren = $this->get_child_products();
+        $newChildren = array_diff($data, $existingChildren);
+
+        foreach ($newChildren as $child) {
+            DatabaseHelper::instance()->store(
+                $child,
+                $this->get_id(),
+            );
+        }
         do_action('Elderbraum/WooProductSet/models/store-children/post', $data, $this->get_id());
     }
 }

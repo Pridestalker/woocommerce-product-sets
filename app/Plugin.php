@@ -20,7 +20,7 @@ class Plugin
         $this->register_taxonomies();
         $this->register_hooks();
         $this->register_updates();
-        $this->registerScripts();
+        add_action('admin_footer', [$this, 'registerScripts']);
     }
 
     protected function register_post_types()
@@ -93,7 +93,7 @@ class Plugin
         );
     }
 
-    protected function registerScripts()
+    public function registerScripts()
     {
         wp_register_script(
             'woocommerce-product-sets-main',

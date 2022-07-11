@@ -13,8 +13,16 @@ class EnqueueScripts extends Hook
 
     public function hook()
     {
-        if (is_product()) {
-            wp_enqueue_script('woocommerce-product-sets-main',);
+        if (!is_admin()) {
+            return;
+        }
+
+        if (!isset($_GET['post'])) {
+            return;
+        }
+
+        if (get_post_type($_GET['post']) === 'product') {
+            wp_enqueue_script('woocommerce-product-sets-main');
         }
     }
 }
