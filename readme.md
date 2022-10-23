@@ -23,3 +23,9 @@ the percentage to a higher number than 100.
 You can also install the plugin via composer, it is registered as
 a "type": "wordpress-plugin". This way you can require it in a
 bedrock installation.
+
+## Security
+
+If you discover any security related issues, please email
+[plugins.wp@hijlkema.codes](mailto:plugins.wp@hijlkema.codes)
+with the details!
