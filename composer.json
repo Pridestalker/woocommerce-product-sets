@@ -2,6 +2,7 @@
   "name": "elderbraum/woocommerce-product-sets",
   "description": "A new product type for woocommerce",
   "license": "GPL-2.0-or-later",
+  "type": "wordpress-plugin",
   "autoload": {
     "psr-4": {
       "WooProductSets\\": "app/"
