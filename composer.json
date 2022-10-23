@@ -21,13 +21,13 @@
     }
   ],
   "require": {
+    "php": ">=8",
     "php-di/php-di": "^6.3",
     "kint-php/kint": "^3.3",
     "league/plates": "^3.4",
     "monolog/monolog": "^2.3",
     "symfony/http-foundation": "^5.3",
-    "league/flysystem": "^2.2",
-    "yahnis-elsts/plugin-update-checker": "^4.11"
+    "league/flysystem": "^2.2"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master"

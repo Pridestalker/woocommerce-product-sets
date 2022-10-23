@@ -10,8 +10,6 @@ class Plugin
 
     protected static ?Plugin $_instance = null;
 
-    public $updates;
-
     private function __construct()
     {
         if (!empty(config('hooks.post_types'))) {
@@ -19,7 +17,6 @@ class Plugin
         }
         $this->register_taxonomies();
         $this->register_hooks();
-        $this->register_updates();
         add_action('admin_footer', [$this, 'registerScripts']);
     }
 
@@ -84,15 +81,6 @@ class Plugin
         }
     }
 
-    protected function register_updates()
-    {
-        $this->updates = \Puc_v4_Factory::buildUpdateChecker(
-            config('updates.metadata'),
-            config('updates.full_path'),
-            config('updates.slug'),
-        );
-    }
-
     public function registerScripts()
     {
         wp_register_script(
@@ -103,7 +91,6 @@ class Plugin
             true
         );
     }
-
 
     /**
      * Gets the base plugin file to hook in to everything.
